@@ -11,7 +11,7 @@ namespace Product.Persistance.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly OnionContext _context;
+        protected readonly OnionContext _context;
 
         public Repository(OnionContext context)
         {

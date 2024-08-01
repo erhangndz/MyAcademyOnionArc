@@ -1,9 +1,13 @@
 ﻿@model List<GetCategoryQueryResult>
 @{
     ViewData["Title"] = "Index";
+
 }
 
 <h3>Kategoriler</h3>
+@{
+    int count = 0;
+}
 
 <table class="table table-bordered">
     <tr>
@@ -14,8 +18,9 @@
     </tr>
     @foreach (var item in Model)
     {
+        count++;
         <tr>
-            <td>@item.CategoryId</td>
+            <td>@count</td>
             <td>@item.CategoryName</td>
             <td><a href="/Category/DeleteCategory/@item.CategoryId" class="btn btn-danger">Sil</a></td>
             <td><a href="/Category/UpdateCategory/@item.CategoryId" class="btn btn-info">Güncelle</a></td>

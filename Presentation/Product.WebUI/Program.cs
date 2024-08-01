@@ -4,12 +4,15 @@ using Product.Application.Interfaces;
 using Product.Persistance.Context;
 using Product.Persistance.Repositories;
 using Product.WebUI.Extensions;
+using Product.WebUI.Mappings;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddServiceHandlers();
 
