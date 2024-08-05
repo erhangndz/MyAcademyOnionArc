@@ -4,6 +4,8 @@ using Product.Application.Features.CQRS.Results.CategoryResults;
 using Product.Application.Features.CQRS.Results.ProductResults;
 using ent = Product.Domain.Entities;
 using Product.Domain.Entities;
+using Product.Application.Features.Mediator.Results.CustomerResults;
+using Product.Application.Features.Mediator.Commands.CustomerCommands;
 
 
 namespace Product.WebUI.Mappings
@@ -18,6 +20,11 @@ namespace Product.WebUI.Mappings
             CreateMap<UpdateProductCommand, ent.Product>().ReverseMap();
 
             CreateMap<Category, GetCategoryQueryResult>().ReverseMap();
+
+            CreateMap<Customer, GetCustomerQueryResult>().ReverseMap();
+            CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
+            CreateMap<Customer, GetCustomerByIdQueryResult>().ReverseMap();
+            CreateMap<Customer, UpdateCustomerCommand>().ReverseMap();
         }
     }
 }

@@ -14,7 +14,8 @@
     <input type="text" asp-for="Stock" class="form-control" />
     <br />
     <label>Fiyat</label>
-    <input type="text" asp-for="Price" class="form-control" />
+    <input type="text" asp-for="Price" id="priceInput" placeholder='0.00' class="form-control" />
+
     <br />
     <label>Kategori</label>
     <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.categories" >
@@ -23,3 +24,57 @@
     <br />
     <button class="btn btn-primary">Kaydet</button>
 </form>
+
+
+<input type="text" asp-for="Price" id="priceInput" placeholder='0.00' class="form-control" />
+<script>
+    function formatNumber(value) {
+        // Remove all non-numeric characters except comma
+        value = value.replace(/[^\d,]/g, '');
+
+        let parts = value.split(',');
+
+        // Format integer part with thousand separators
+        if (parts[0]) {
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        // Join the integer and decimal parts
+        return parts.join(',');
+    }
+
+    document.getElementById('priceInput').addEventListener('input', function (e) {
+        let value = e.target.value;
+
+        // Save the cursor position
+        let cursorPosition = e.target.selectionStart;
+
+        // Format the value
+        let formattedValue = formatNumber(value);
+
+        // Set the formatted value back to the input
+        e.target.value = formattedValue;
+
+        // Restore the cursor position
+        e.target.setSelectionRange(cursorPosition, cursorPosition);
+    });
+
+    document.getElementById('priceInput').addEventListener('blur', function (e) {
+        let value = e.target.value;
+
+        // Ensure there's always two decimal places
+        if (value) {
+            if (!value.includes(',')) {
+                value += ',00';
+            } else {
+                let parts = value.split(',');
+                if (parts[1].length === 0) {
+                    value += '00';
+                } else if (parts[1].length === 1) {
+                    value += '0';
+                }
+            }
+            e.target.value = value;
+        }
+    });
+</script>

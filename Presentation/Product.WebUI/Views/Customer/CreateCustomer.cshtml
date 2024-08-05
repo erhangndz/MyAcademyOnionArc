@@ -1,0 +1,17 @@
+﻿@model CreateCustomerCommand
+@{
+    ViewData["Title"] = "CreateCustomer";
+}
+
+<h1>Yeni Müşteri Oluşturma Sayfası</h1>
+
+<form method="post">
+    <label>Müşteri Ad Soyad</label>
+    <input type="text" asp-for="NameSurname" class="form-control" />
+    <br />
+    <label>Müşteri Email</label>
+    <input type="email" asp-for="Email" class="form-control" />
+    <br />
+    <button class="btn btn-primary">Kaydet</button>
+
+</form>

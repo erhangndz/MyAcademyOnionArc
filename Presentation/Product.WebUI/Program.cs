@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Product.Application.Features.CQRS.Handlers.CategoryHandlers;
+using Product.Application.Features.Mediator.Handlers.CustomerHandlers;
 using Product.Application.Interfaces;
 using Product.Persistance.Context;
 using Product.Persistance.Repositories;
@@ -10,6 +11,12 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblyContaining<GetCustomerQueryHandler>();
+});
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
