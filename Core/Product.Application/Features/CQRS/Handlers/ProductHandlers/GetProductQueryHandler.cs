@@ -25,7 +25,7 @@ namespace Product.Application.Features.CQRS.Handlers.ProductHandlers
 
         public async Task<List<GetProductQueryResult>> Handle()
         {
-            var values = await _productRepository.GetAllProductsWithCategoryAsync();
+            var values = await _repository.GetListAsync(include:x=>x.Category);
             return _mapper.Map<List<GetProductQueryResult>>(values);
            
         }

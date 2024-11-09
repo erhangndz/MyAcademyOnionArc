@@ -4,8 +4,10 @@ using Product.Persistance.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.XPath;
 
 namespace Product.Persistance.Repositories
 {
@@ -39,6 +41,28 @@ namespace Product.Persistance.Repositories
         public async Task<List<T>> GetListAsync()
         {
             return await _context.Set<T>().ToListAsync();
+        }
+
+        public async Task<List<T>> GetListAsync(Expression<Func<T, bool>>? filter=null, Expression<Func<T, object>>? include=null)
+        {
+            IQueryable<T> values = _context.Set<T>();
+
+            if (filter != null)
+            {
+               values = values.Where(filter);
+            }
+            if (include != null)
+            {
+                values = values.Include(include);
+            }
+
+            return await values.ToListAsync();
+        
+        }
+
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(filter);
         }
 
         public async Task UpdateAsync(T entity)
